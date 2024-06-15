@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+    <header>
+        <img src="ReciclaGana.png" alt="">
+    
+    </header>
+
+
+    <hr>
+
+    <br><br><p>Bienvenido a nuestro sistema de reciclaje.</p>
+    <p>Necesitamos que ingrese los datos necesarios para calcular sus puntos </p><br><br>
+
+    <section>
+    <article>
+
+    <label for="">Identificacion</label>
+    <br>
+    <input type="number" name="identificacion" id="ced">
+    <br>
+    <br>
+    <label for="">Nombre</label>
+    <br>
+    <input type="text" name="nombre" id="nom">
+    <br><br>
+    <label for="">Provincia</label>
+    <br>
+    <input type="text" name="provincia" id="prov">
+    <br><br><br><br>
+    <h3><label for="">Que clase de materiales estas reciclando hoy?</label></h3>
+    <br>
+    <input type="checkbox" id="papel" name="materiales" value="papel">
+    <label for="papel">Papel</label><br>
+    Cantidad de papel reciclado: <input type="number" id="cantidadPapel" name="cantidadPapel" min="0"placeholder="KG"><br>
+
+    <input type="checkbox" id="plastico" name="materiales" value="plastico">
+    <label for="plastico">Plástico</label><br>
+    Cantidad de plástico reciclado: <input type="number" id="cantidadPlastico" name="cantidadPlastico" min="0"placeholder="KG"><br>
+
+    <input type="checkbox" id="vidrio" name="materiales" value="vidrio">
+    <label for="vidrio">Vidrio</label><br>
+    Cantidad de vidrio reciclado: <input type="number" id="cantidadVidrio" name="cantidadVidrio" min="0"placeholder="KG"><br>
+
+    <input type="checkbox" id="metal" name="materiales" value="metal">
+    <label for="metal">Metal</label><br>
+    Cantidad de metal reciclado: <input type="number" id="cantidadMetal" name="cantidadMetal" min="0"placeholder="KG"><br><br>
+     
+
+    
+
+
+    <div><button  class= "button" id="BotonInfo" onclick="recicla()">RECICLAR</button></div>
+    </article> <br>  
+    <article>
+    <h2>Resultados</h2>
+    
+  
+    <p id="resultado"></p>
+
+    </article>
+    </section>
+    
+    <aside>
+        <p id="estado"></p>
+        <p id="puntaje"></p>
+    </aside>
+    
+
+
+    <script>
+        let array = [];
+
+        var n = window.prompt("Ingrese la cantidad de veces que ingresara datos. una vez puestos, se imprimiran automaticamente");
+
+        
+
+       
+
+        function recicla() {
+
+            var datosRRR = {
+
+                ced: document.getElementById("ced").value,
+                nombre: document.getElementById("nom").value,
+                provincia: document.getElementById("prov").value,
+                cantiPapel: parseInt(document.getElementById("cantidadPapel").value),
+                cantiPlastico: parseInt(document.getElementById("cantidadPlastico").value),
+                cantiVidrio: parseInt(document.getElementById("cantidadVidrio").value),
+                cantiMetal: parseInt(document.getElementById("cantidadMetal").value),
+                punto: 0,
+                plata: 0,
+                estadisitca: 0,
+                basuraGenerada: 36.8,
+                papelChecked: document.getElementById('papel').checked,
+                plasticoChecked: document.getElementById('plastico').checked,
+                vidrioChecked: document.getElementById('vidrio').checked,
+                metalChecked: document.getElementById('metal').checked,
+                totalreciclado: 0,
+
+
+            };
+
+
+
+
+
+
+            switch (true) {
+                // Caso 1: Solo papel está marcado
+                case datosRRR.papelChecked && !datosRRR.plasticoChecked && !datosRRR.vidrioChecked && !datosRRR.metalChecked:
+                    var plata = 100;
+                    var cantiPapel = datosRRR.cantiPapel;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = ((cantiPapel / basuraGenerada) * 100);
+                    var punto = 1;
+                    var totalreciclado= cantiPapel;
+                    var cantiPlastico = 0;
+                    var cantiVidrio = 0;
+                    var cantiMetal = 0;
+                    break;
+                // Caso 2: Solo plástico está marcado
+                case !datosRRR.papelChecked && datosRRR.plasticoChecked && !datosRRR.vidrioChecked && !datosRRR.metalChecked:
+                    var plata = 200;
+                    var cantiPlastico = datosRRR.cantiPlastico;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = ((cantiPlastico / basuraGenerada) * 100);
+                    var punto = 1;
+                    var totalreciclado= cantiPlastico;
+                    var cantiPapel = 0;
+                    var cantiVidrio = 0;
+                    var cantiMetal = 0;
+                    break;
+                // Caso 3: Solo vidrio está marcado
+                case !datosRRR.papelChecked && !datosRRR.plasticoChecked && datosRRR.vidrioChecked && !datosRRR.metalChecked:
+                    var vidrio = 350;
+                    var cantiVidrio = datosRRR.cantiVidrio;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = ((cantiVidrio / basuraGenerada) * 100);
+                    var punto = 1;
+                    var totalreciclado= cantiVidrio;
+                    var cantiPapel = 0;
+                    var cantiPlastico = 0;
+                    var cantiMetal = 0;
+                    break;
+                // Caso 4: Solo metal está marcado
+                case !datosRRR.papelChecked && !datosRRR.plasticoChecked && !datosRRR.vidrioChecked && datosRRR.metalChecked:
+                    var plata = 500;
+                    var cantiMetal = datosRRR.cantiMetal;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = ((cantiVidrio / basuraGenerada) * 100);
+                    var punto = 1;
+                    var totalreciclado = cantiMetal;
+                    var cantiPapel = 0;
+                    var cantiPlastico = 0;
+                    var cantiVidrio = 0;
+                    break;
+                // Caso 5: Papel y plástico están marcados
+                case datosRRR.papelChecked && datosRRR.plasticoChecked && !datosRRR.vidrioChecked && !datosRRR.metalChecked:
+                    var plata = 200 + 100;
+                    var cantiPapel = datosRRR.cantiPapel;
+                    var cantiPlastico = datosRRR.cantiPlastico;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiPapel+cantiPlastico)/ basuraGenerada) * 100);
+                    var punto = 2;
+                    var totalreciclado = cantiPapel + cantiPlastico;
+                    var cantiVidrio = 0;
+                    var cantiMetal = 0;
+                    break;
+                // Caso 6: Papel y vidrio están marcados
+                case datosRRR.papelChecked && !datosRRR.plasticoChecked && datosRRR.vidrioChecked && !datosRRR.metalChecked:
+                    var plata = 100 + 300;
+                    var cantiPapel = datosRRR.cantiPapel;
+                    var cantiVidrio = datosRRR.cantiVidrio;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiPapel+cantiVidrio)/ basuraGenerada) * 100);
+                    var punto = 2;
+                    var totalreciclado = cantiPapel + cantiVidrio;
+                    var cantiPlastico = 0;
+                    var cantiMetal = 0;
+                    break;
+                // Caso 7: Papel y metal están marcados
+                case datosRRR.papelChecked && !datosRRR.plasticoChecked && !datosRRR.vidrioChecked && datosRRR.metalChecked:
+                    var plata = 100 + 500;
+                    var cantiPapel = datosRRR.cantiPapel;
+                    var cantiMetal = datosRRR.cantiMetal;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiPapel+cantiMetal)/ basuraGenerada) * 100);
+                    var punto = 2;
+                    var totalreciclado = cantiPapel + cantiMetal;                                       
+                    var cantiPlastico = 0;
+                    var cantiVidrio = 0;
+
+                    break;
+                // Caso 8: Plástico y vidrio están marcados
+                case !datosRRR.papelChecked && datosRRR.plasticoChecked && datosRRR.vidrioChecked && !datosRRR.metalChecked:
+                    var plata= 200 + 350;
+                    var cantiPlastico = datosRRR.cantiPlastico;
+                    var cantiVidrio = datosRRR.cantiVidrio;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiPlastico+cantiVidrio)/ basuraGenerada) * 100);
+                    var punto = 2;
+                    var totalreciclado = cantiPlastico + cantiVidrio;
+                    var cantiPapel = 0;
+
+                    var cantiMetal = 0;
+                    
+                    break;
+                // Caso 9: Plástico y metal están marcados
+                case !datosRRR.papelChecked && datosRRR.plasticoChecked && !datosRRR.vidrioChecked && datosRRR.metalChecked:
+                    var plata = 200 + 500;
+                    var cantiPlastico = datosRRR.cantiPlastico;
+                    var cantiMetal = datosRRR.cantiMetal;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiPlastico+cantiMetal)/ basuraGenerada) * 100);
+                    var punto = 2;
+                    var totalreciclado = cantiPlastico + cantiMetal;
+                    var cantiPapel = 0;
+
+                    var cantiVidrio = 0;
+
+                    break;
+                // Caso 10: Vidrio y metal están marcados
+                case !datosRRR.papelChecked && !datosRRR.plasticoChecked && datosRRR.vidrioChecked && datosRRR.metalChecked:
+                    var plata = 350 + 500;
+                    var cantiMetal = datosRRR.cantiMetal;
+                    var cantiVidrio = datosRRR.cantiVidrio;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiVidrio+cantiMetal)/ basuraGenerada) * 100);
+                    var punto = 2;
+                    var totalreciclado = cantiVidrio + cantiMetal;
+                    var cantiPapel = 0;
+                    var cantiPlastico = 0;
+
+                    break;
+                // Caso 11: Papel, plástico y vidrio están marcados
+                case datosRRR.papelChecked && datosRRR.plasticoChecked && datosRRR.vidrioChecked && !datosRRR.metalChecked:
+                    var plata = 100 + 200 + 350;
+                    var cantiPapel = datosRRR.cantiPapel;
+                    var cantiPlastico = datosRRR.cantiPlastico;
+                    var cantiVidrio = datosRRR.cantiVidrio;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiPapel+cantiPlastico+cantiVidrio)/ basuraGenerada) * 100);
+                    var punto = 3;
+                    var totalreciclado = cantiPapel + cantiPlastico + cantiVidrio;
+                    var cantiMetal = 0;
+                    break;
+                // Caso 12: Papel, plástico y metal están marcados
+                case datosRRR.papelChecked && datosRRR.plasticoChecked && !datosRRR.vidrioChecked && datosRRR.metalChecked:
+                    var plata = 100 + 200 + 500;
+                    var cantiPapel = datosRRR.cantiPapel;
+                    var cantiPlastico = datosRRR.cantiPlastico;
+                    var cantiMetal = datosRRR.cantiMetal;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiPapel+cantiPlastico+cantiMetal)/ basuraGenerada) * 100);
+                    var punto = 3;
+                    var totalreciclado = cantiPapel + cantiPlastico + cantiMetal;
+
+                    var cantiVidrio = 0;
+                    break;
+                // Caso 13: Papel, vidrio y metal están marcados
+                case datosRRR.papelChecked && !datosRRR.plasticoChecked && datosRRR.vidrioChecked && datosRRR.metalChecked:
+                    var plata = 100 + 350 + 500;
+                    var cantiPapel = datosRRR.cantiPapel;
+                    var cantiVidrio = datosRRR.cantivircantiVidrio;
+                    var cantiMetal = datosRRR.cantiMetal;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiPapel+cantiVidrio+cantiMetal)/ basuraGenerada) * 100);
+                    var punto = 3;
+                    var totalreciclado = cantiPapel + cantiVidrio + cantiMetal;
+                    var cantiPlastico = 0;
+                    break;
+                // Caso 14: Plástico, vidrio y metal están marcados
+                case !datosRRR.papelChecked && datosRRR.plasticoChecked && datosRRR.vidrioChecked && datosRRR.metalChecked:
+                    var plata = 200 + 350 + 500;
+                    var cantiMetal = datosRRR.cantiMetal;
+                    var cantiPlastico = datosRRR.cantiPlastico;
+                    var cantiVidrio = datosRRR.cantiVidrio;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiPlastico+cantiVidrio+cantiMetal)/ basuraGenerada) * 100);
+                    var punto = 3;
+                    var totalreciclado = cantiMetal + cantiPlastico + cantiVidrio;
+                    var cantiPapel = 0;
+                    break;
+                // Caso 15: Todos los materiales están marcados
+                case datosRRR.papelChecked && datosRRR.plasticoChecked && datosRRR.vidrioChecked && datosRRR.metalChecked:
+                    var plata = 100 + 200 + 350 + 500;
+                    var cantiPapel = datosRRR.cantiPapel;
+                    var cantiPlastico = datosRRR.cantiPlastico;
+                    var cantiVidrio = datosRRR.cantiVidrio;
+                    var cantiMetal = datosRRR.cantiMetal;
+                    var basuraGenerada = datosRRR.basuraGenerada;
+                    var estadisitca = (((cantiPapel+cantiPlastico+cantiVidrio+cantiMetal)/ basuraGenerada) * 100);
+                    var punto = 4;
+                    var totalreciclado = cantiMetal + cantiPapel + cantiPlastico + cantiVidrio;
+
+                    break;
+                // Caso 16: Ningún material está marcado
+                default:
+                    plata = 0; // No se recicla nada
+                    var cantiPapel = 0;
+                    var cantiPlastico = 0;
+                    var cantiVidrio = 0;
+                    var cantiMetal = 0;
+                    var basuraGenerada = 0;
+                    var estadisitca = 0;
+                    var totalreciclado = 0 ;
+                    break;
+            }
+
+                datosRRR.plata = plata;
+                datosRRR.estadisitca = estadisitca;
+                datosRRR.punto = punto;
+                datosRRR.totalreciclado = totalreciclado;
+                datosRRR.cantiPapel = cantiPapel;
+                datosRRR.cantiPlastico = cantiPlastico;
+                datosRRR.cantiVidrio = cantiVidrio;
+                datosRRR.cantiMetal = cantiMetal;
+
+                
+                
+
+                
+
+
+                array.push(datosRRR);
+
+                document.getElementById("nom").value = "";
+                document.getElementById("ced").value = "";
+                document.getElementById("prov").value = "";
+                document.getElementById("cantidadPapel").value = "";
+                document.getElementById("cantidadPlastico").value = "";
+                document.getElementById("cantidadVidrio").value = "";
+                document.getElementById("cantidadMetal").value = "";
+                document.getElementById('papel').checked = "";
+                document.getElementById('plastico').checked = "";
+                document.getElementById('vidrio').checked = "";
+                document.getElementById('metal').checked= "";
+
+
+
+                if (array.length == n) {
+                document.getElementById("BotonInfo").disabled = true;
+                mostrarResultados();
+                calcularEstadistica();
+            } 
+
+
+                var estado = "";
+            for (let i = 0; i < array.length; i++) {
+                
+                estado += `
+                <hr>
+                <p><strong>Puntos Ganados: </strong> ${array[i].punto} </p>                                       
+                `;
+                }
+
+
+
+            
+            document.getElementById("puntaje").innerHTML = estado;
+
+             
+
+
+
+        }
+        
+
+        function mostrarResultados() {
+    let result = "";
+
+    // Calcular totales para los porcentajes
+    let totalPapel = 0;
+    let totalPlastico = 0;
+    let totalVidrio = 0;
+    let totalMetal = 0;
+
+    for (let i = 0; i < array.length; i++) {
+        totalPapel += array[i].cantiPapel;
+        totalPlastico += array[i].cantiPlastico;
+        totalVidrio += array[i].cantiVidrio;
+        totalMetal += array[i].cantiMetal;
+    }
+
+    // Mostrar resultados para cada usuario
+    for (let i = 0; i < array.length; i++) {
+        let porcentajePapel = (array[i].cantiPapel / totalPapel) * 100;
+        let porcentajePlastico = (array[i].cantiPlastico / totalPlastico) * 100;
+        let porcentajeVidrio = (array[i].cantiVidrio / totalVidrio) * 100;
+        let porcentajeMetal = (array[i].cantiMetal / totalMetal) * 100;
+
+        if (isNaN(porcentajePapel)) {
+            porcentajePapel = 0;
+        }
+        if (isNaN(porcentajePlastico)) {
+            porcentajePlastico = 0;
+        }
+        if (isNaN(porcentajeVidrio)) {
+            porcentajeVidrio = 0;
+        }
+        if (isNaN(porcentajeMetal)) {
+            porcentajeMetal = 0;
+        }
+
+        result += `
+            <hr>
+            <p><strong>Cedula:</strong> ${array[i].ced}</p><br>
+            <p><strong>Nombre:</strong> ${array[i].nombre}</p><br>
+            <p><strong>Provincia:</strong> ${array[i].provincia}</p><br>
+            <p><strong>Cantidad de papel reciclado: </strong> ${array[i].cantiPapel}</p><br>
+            <p><strong>Cantidad de vidrio reciclado: </strong> ${array[i].cantiVidrio}</p><br>
+            <p><strong>Cantidad de plastico reciclado: </strong> ${array[i].cantiPlastico}</p><br>
+            <p><strong>Cantidad de metal reciclado: </strong> ${array[i].cantiMetal}</p><br>
+            <p><strong>Puntos Ganados: </strong> ${array[i].punto}</p><br>
+            <p><strong>Dinero Ganado: </strong> ${array[i].plata} colones</p><br>
+            <p><strong>Porcentaje de papel reciclado: </strong> ${porcentajePapel.toFixed(2)}%</p><br>
+            <p><strong>Porcentaje de plástico reciclado: </strong> ${porcentajePlastico.toFixed(2)}%</p><br>
+            <p><strong>Porcentaje de vidrio reciclado: </strong> ${porcentajeVidrio.toFixed(2)}%</p><br>
+            <p><strong>Porcentaje de metal reciclado: </strong> ${porcentajeMetal.toFixed(2)}%</p><br>
+        `;
+    }
+
+    document.getElementById("resultado").innerHTML = result;
+}
+
+
+       
+
+function calcularEstadistica() {
+    // Inicializar variables para contar la cantidad total de cada material
+    let totalPapel = 0;
+    let totalPlastico = 0;
+    let totalVidrio = 0;
+    let totalMetal = 0;
+
+    // Iterar sobre el array de datos para sumar los totales de cada material
+    for (let i = 0; i < array.length; i++) {
+        totalPapel += array[i].cantiPapel;
+        totalPlastico += array[i].cantiPlastico;
+        totalVidrio += array[i].cantiVidrio;
+        totalMetal += array[i].cantiMetal;
+    }
+
+    // Mostrar los resultados en el HTML
+    document.getElementById("estado").innerHTML = `
+        <p><strong>Total de papel reciclado:</strong> ${totalPapel} KG</p>
+        <p><strong>Total de plástico reciclado:</strong> ${totalPlastico} KG</p>
+        <p><strong>Total de vidrio reciclado:</strong> ${totalVidrio} KG</p>
+        <p><strong>Total de metal reciclado:</strong> ${totalMetal} KG</p>
+    `;
+}
+
+
+        
+    </script>
+    
+</body>
+</html>
+    
+    
+    
+</body>
+</html>
